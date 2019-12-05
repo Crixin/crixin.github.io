@@ -1,0 +1,35 @@
+.table > thead > tr > td.wrong,
+.table > tbody > tr > td.wrong,
+.table > tfoot > tr > td.wrong,
+.table > thead > tr > th.wrong,
+.table > tbody > tr > th.wrong,
+.table > tfoot > tr > th.wrong,
+.table > thead > tr.wrong > td,
+.table > tbody > tr.wrong > td,
+.table > tfoot > tr.wrong > td,
+.table > thead > tr.wrong > th,
+.table > tbody > tr.wrong > th,
+.table > tfoot > tr.wrong > th {
+  background-color: #f9bdbb;
+}
+
+.selected {
+    background: #c9dcc1!important;
+}
+
+.selectedWrong {
+    background: #ca9998!important;
+}
+
+#validated-tokens {
+    display: none;
+}
+
+#validated-tokens li {
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.list-group li{
+    border: none;
+}
