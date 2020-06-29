@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analisador Sintático</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-color-padrao">
+        <h3 class="navbar-brand" style="text-align:center">Analisador Sintático</h3>
+    </nav>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="img/gramatica.PNG" style="width: 100%" alt="gramatica">
+            </div>
+            <div class="col-md-8 row">
+                <div class="col-sm-11 adjust-margin">
+                    <div class="form-group form-group-sm">
+                        <input type="text" class="form-control" placeholder="Ex: ebeccededebbebb" id="sentenca">
+                        <div class="input-group mt-2">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-success" type="button" id="btn-generate">Gerar sentença</button>
+                                <button class="btn btn-outline-secondary ml-2" type="button" onclick="validaSentenca(true)">Validar</button>
+                                <button class="btn btn-outline-secondary ml-2" type="button" onclick="validaSentenca(false)" >Passo a passo</button>
+                                <button class="btn btn-outline-info ml-2" type="button" id="limpar">Limpar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-dark debug-table" style="text-align: center;">
+                        <thead class="bg-style-table">
+                            <tr>
+                                <th>Pilha</th>
+                                <th>Entrada</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody style="margin-bottom: 20px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="js/gramatica.js"></script>
+<script src="js/functions.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#sentenca').on('keypress', function() {
+            resetarVariaveis(); validacao(null); montaTabela([]);
+        });
+
+        $('#limpar').click(function() {
+            $('#sentenca').val('');
+            resetarVariaveis(); validacao(null); montaTabela([]);
+        });
+
+        $('#btn-generate').click(function() {
+            $('#limpar').click();
+            $('#sentenca').val(geradorSenteca());
+        });
+    });
+</script>
+
+</html>
