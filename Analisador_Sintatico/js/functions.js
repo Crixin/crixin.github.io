@@ -40,15 +40,6 @@ function montaTabela(table) {
     }
 }
 
-function resetarVariaveis() {
-    entrada = [];
-    contador = 1;
-    aceito = null;
-    tabelaFinal = [];
-    pilha = ['$', 'S'];
-    continuarSentenca = true;
-}
-
 function preparaLinha() {
     return {
         pilha: pilha.join(''),
@@ -72,7 +63,6 @@ function calculaTabela(sentenca, direto) {
     return {
         entrada: entrada.join(''), pilha: pilha.join(''), aceito: aceito, table: tabelaFinal
     };
-
 }
 
 function validacao(aceito) {
@@ -111,4 +101,13 @@ function novaIteracao() {
     }
     contador++;
     tabelaFinal.push(linha);
+}
+
+function resetarVariaveis() {
+    entrada = [];
+    contador = 1;
+    aceito = null;
+    tabelaFinal = [];
+    pilha = ['$', 'S'];
+    continuarSentenca = true;
 }
