@@ -6,6 +6,12 @@ let pilha = ['$', 'S'];
 let sentencaAtual = '';
 let continuarSentenca = true;
 
+function validaSentenca(direto) {   
+    let sentenca = calculaTabela($('#sentenca').val(), direto);
+    validacao(sentenca.aceito);
+    montaTabela(sentenca.table);
+}
+
 function geradorSenteca() {
     let regraInicial = 'S';
     let continuarGerando = true;
@@ -23,13 +29,7 @@ function geradorSenteca() {
         }
         continuarGerando = indexRegra === -1 ? false : continuarGerando;
     }
-    return sentenca.replace(/[^a-zA-Z0-9]/g,'');
-}
-
-function validaSentenca(direto) {   
-    let sentenca = calculaTabela($('#sentenca').val(), direto);
-    validacao(sentenca.aceito);
-    montaTabela(sentenca.table);
+    return sentenca.replace("&",'');
 }
 
 function montaTabela(table) {
@@ -63,6 +63,16 @@ function calculaTabela(sentenca, direto) {
     return {
         entrada: entrada.join(''), pilha: pilha.join(''), aceito: aceito, table: tabelaFinal
     };
+
+}
+
+function resetarVariaveis() {
+    entrada = [];
+    contador = 1;
+    aceito = null;
+    tabelaFinal = [];
+    pilha = ['$', 'S'];
+    continuarSentenca = true;
 }
 
 function validacao(aceito) {
@@ -75,16 +85,12 @@ function novaIteracao() {
     let linha = preparaLinha();
     let topo = pilha[pilha.length - 1];
     let simbolo = entrada[0];
-    if (topo === '$' && simbolo === '$') {
-        aceito = true;
-        continuarSentenca = false;
-        linha.acao = 'Aceito em ' + contador + ' iterações';
-    } else {
+    if (!(topo === '$' && simbolo === '$')) {
         if (topo == simbolo) {
             pilha.pop();
             entrada.shift();
             linha.acao = "Ler " + simbolo;
-        } else if (parsingTable[topo][simbolo]) {
+        } else if (parsingTable[topo] && parsingTable[topo][simbolo]) {
             let valorTopo = parsingTable[topo][simbolo];
             linha.acao = topo + ' -> ' + valorTopo.join('');
             pilha.pop();
@@ -98,16 +104,11 @@ function novaIteracao() {
             continuarSentenca = false;
             linha.acao = 'Erro em ' + contador + ' iterações';
         }
+    } else {
+        aceito = true;
+        continuarSentenca = false;
+        linha.acao = 'Aceito em ' + contador + ' iterações';
     }
     contador++;
     tabelaFinal.push(linha);
-}
-
-function resetarVariaveis() {
-    entrada = [];
-    contador = 1;
-    aceito = null;
-    tabelaFinal = [];
-    pilha = ['$', 'S'];
-    continuarSentenca = true;
 }
